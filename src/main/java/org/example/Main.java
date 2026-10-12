@@ -19,18 +19,6 @@ public class Main {
         System.out.println("Change From feautre A");
         System.out.println("Change From feautre A");
         System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
-        System.out.println("Change From feautre A");
+
     }
 }
