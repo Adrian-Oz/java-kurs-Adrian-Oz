@@ -1,6 +1,6 @@
 package Homeworks.hw2;
 
-import java.util.Locale;
+
 import java.util.Scanner;
 
 public class Main {
@@ -30,13 +30,13 @@ public class Main {
 
         System.out.println("Enter luggage weight:  (eg. kk,gg) ");
         String baggageWeight = sc.nextLine();
-        if (baggageWeight.contains(",") && baggageWeight.substring(baggageWeight.indexOf(",")).length() == 2) {
+        if (!baggageWeight.contains(",") || baggageWeight.substring(baggageWeight.indexOf(",")).length() != 3) {
             System.out.println("REJECTED:");
-            System.out.println("Baggage weight has to have 2 digits after the \",\"");
+            System.out.println("Baggage weight must contain \",\" and have 2 digits after it.");
             return;
         }
         String[] baggageWeights = baggageWeight.split(",");
-        int baggageWeightInGrams = Integer.parseInt(baggageWeights[0]) * 1000 + Integer.parseInt(baggageWeights[1]) * 100;
+        int baggageWeightInGrams = Integer.parseInt(baggageWeights[0]) * 1000 + Integer.parseInt(baggageWeights[1]) * 10;
         if (baggageWeightInGrams < 0 || baggageWeightInGrams > 60000) {
             System.out.println("REJECTED:");
             System.out.println(baggageWeightInGrams);
@@ -75,7 +75,7 @@ public class Main {
             case "BUSINESS" -> 32000;
             case "FIRST" -> 40000;
             default -> {
-                System.out.println("UWAGA: nieznana klasa X, przyjmuję limit economy");
+                System.out.println("UWAGA: nieznana klasa flightClass, przyjmuję limit economy");
                 yield 23000;
 
             }
@@ -94,21 +94,22 @@ public class Main {
                 (baggageWeightInGrams % 1000) / 10);
         System.out.printf("%-20s %d,%02d kg%n", "LIMIT:",
                 baggageLimit / 1000,
-                (baggageLimit % 1000) / 10);
+                0);
         int overweight = baggageWeightInGrams - baggageLimit;
         if (overweight > 0) {
             System.out.printf("%-20s %d,%02d kg%n", "NADWAGA:",
-                    (baggageWeightInGrams - baggageLimit) / 1000,
-                    ((baggageWeightInGrams - baggageLimit) / 1000) / 10);
+                    overweight / 1000,
+                    (overweight % 1000) / 10);
         } else {
-            System.out.printf("%-20s %d,%d kg%n", "NADWAGA:",
+            System.out.printf("%-20s %d,%02d kg%n", "NADWAGA:",
                     0,
                     0);
         }
 
-        System.out.printf("%-20s %d zł%n", "OPŁATA:", calculateFee(baggageWeightInGrams, baggageLimit));
+        int baggageFee = calculateFee(baggageWeightInGrams, baggageLimit);
+        System.out.printf("%-20s %d zł%n", "OPŁATA:", baggageFee);
 
-        if (calculateFee(baggageWeightInGrams, baggageLimit) == 300) {
+        if (baggageFee == 300) {
             System.out.println("BAGAŻ DO NADANIA JAKO CARGO");
         }
         System.out.printf("%-20s %s%n", "BOARDING:", boarding);
@@ -137,7 +138,7 @@ public class Main {
     }
 
     public static String formatText(String str) {
-        return str.trim().toUpperCase().replaceAll("\\s+", " ");
+        return str.trim().toUpperCase().replaceAll("\\s+", "");
     }
 
 
