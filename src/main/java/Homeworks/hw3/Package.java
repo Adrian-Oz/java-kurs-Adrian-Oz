@@ -6,46 +6,30 @@ public class Package {
     final int[] EU_FEE = {2500, 400};
     final int[] WORLD_FEE = {4900, 900};
 
-//    public Package(String code, int weight, String local) {
-//        this.code = code;
-//        this.weight = weight;
-//        this.local = local;
-//
-//    }
 
-//    public Package() {
-//    }
 
     private String code;
     private int weight;
     private String local;
-    private  int fee;
+
 
     public int getFee() {
-        int fee = 0;
-
         int startKg = (int) Math.ceil((this.weight / 1000d));
-
-        switch (this.local) {
+        return switch (this.local) {
             case "PL" -> {
-                fee = PL_FEE[0] + startKg * PL_FEE[1];
+                yield PL_FEE[0] + startKg * PL_FEE[1];
             }
             case "EU" -> {
-                fee = EU_FEE[0] + startKg * EU_FEE[1];
+                yield EU_FEE[0] + startKg * EU_FEE[1];
             }
             case "WORLD" -> {
-                fee = WORLD_FEE[0] + startKg * WORLD_FEE[1];
+                yield WORLD_FEE[0] + startKg * WORLD_FEE[1];
             }
-        }
+            default ->
+                    -1; // Should throw an exception here, for now defaults to -1 to indicate that something went wrong
+        };
 
-        this.fee = fee;
-        return fee;
 
-    }
-    public String feeToString() {
-        int zl = this.fee / 100;
-        int gr = this.fee % 100;
-        return String.format("%d,%02d zł", zl, gr);
     }
 
     public String getCode() {

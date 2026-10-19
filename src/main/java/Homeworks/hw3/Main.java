@@ -19,7 +19,7 @@ public class Main {
         int approved = 0;
         int denied = 0;
         int totalWeight = 0;
-        double avgWeight = 1;
+        double avgWeight = 0;
         int totalFee = 0;
 
         int maxWeight = 0;
@@ -53,7 +53,7 @@ public class Main {
                 }
 //              Reset flag before check
                 skipIteration = true;
-                if (input.contains("-") && input.length() > 5) {
+                if (input.contains("-") && input.length() >= 5) {
                     skipIteration = false;
                     currentPackage.setCode(input);
 //                    for loop break
