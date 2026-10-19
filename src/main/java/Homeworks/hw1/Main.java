@@ -19,16 +19,17 @@ public class Main {
 //      Pozycji myślnika nie wpisuj z palca, znajdź ją w tekście.
 //      Tekst na liczbę zamienia Integer.parseInt
 
-        String formatedShop = formatText(rawShop);
-        String formatedCustomer = formatText(rawCustomer);
-        String formatedEmail = formatText(rawEmail);
-        String formatedCode1 = formatText(rawCode1);
-        String formatedCode2 = formatText(rawCode2);
-        String formatedCode3 = formatText(rawCode3);
+        String formattedShop = formatText(rawShop);
+        String formattedCustomer = formatText(rawCustomer);
+        String formattedEmail = formatText(rawEmail);
+        String formattedCode1 = formatText(rawCode1);
+        String formattedCode2 = formatText(rawCode2);
+        String formattedCode3 = formatText(rawCode3);
 
-        int price1 = getPriceFromString(formatedCode1);
-        int price2 = getPriceFromString(formatedCode2);
-        int price3 = getPriceFromString(formatedCode3);
+
+        int price1 = getPriceFromString(formattedCode1);
+        int price2 = getPriceFromString(formattedCode2);
+        int price3 = getPriceFromString(formattedCode3);
 
 //      3. Dopisz nazwy i ilości:
 //      "Chleb razowy"   x2
@@ -48,12 +49,12 @@ public class Main {
 //      email         bez spacji, małymi literami
 //      maskedEmail   "an***@example.com"
 
-        String[] names = formatedCustomer.split(" ");
+        String[] names = formattedCustomer.split(" ");
 
         String customerName = names[0].substring(0, 1) + names[0].substring(1).toLowerCase() +
                 " " + names[1].substring(0, 1) + names[1].substring(1).toLowerCase();
         String loyaltyCard = names[0].substring(0, 1) + names[1].substring(0, 1) + "-" + String.format("%04d", price1);
-        String email = formatedEmail.toLowerCase();
+        String email = formattedEmail.toLowerCase();
 
         String username = email.substring(0, email.indexOf('@'));
         String domain = email.substring(email.indexOf('@'));
@@ -65,7 +66,7 @@ public class Main {
 //      Nazwa sklepu ma być zrobiona z rawShop, a numer paragonu ma wzrosnąć
 //      PRZED wypisaniem, inkrementacją w tej samej linii.
         System.out.printf("%s · kasa %c · paragon %d%n",
-                formatedShop, register, ++receiptNumber);
+                formattedShop, register, ++receiptNumber);
 
         System.out.printf("%s · karta %s · %s%n",
                 customerName, loyaltyCard, maskedEmail);
@@ -88,13 +89,16 @@ public class Main {
 //      6.Wypisz wiersze paragonu przez printf — nazwa, kod, ilość, cena, wartość:
 //      Chleb razowy     SPOZ-0599   2 x    5,99 =     11,98 zł
 
-
+        int itemCounter = 0;
         System.out.printf("%-17s %-12s %2d x %7.2f = %8.2f zł%n",
-                product1, formatedCode1, quantity1, price1 / 100.0, (price1 * quantity1) / 100.0);
+                product1, formattedCode1, quantity1, price1 / 100.0, (price1 * quantity1) / 100.0);
+        itemCounter++;
         System.out.printf("%-17s %-12s %2d x %7.2f = %8.2f zł%n",
-                product2, formatedCode2, quantity2, price2 / 100.0, (price2 * quantity2) / 100.0);
+                product2, formattedCode2, quantity2, price2 / 100.0, (price2 * quantity2) / 100.0);
+        itemCounter++;
         System.out.printf("%-17s %-12s %2d x %7.2f = %8.2f zł%n",
-                product3, formatedCode3, quantity3, price3 / 100.0, (price3 * quantity3) / 100.0);
+                product3, formattedCode3, quantity3, price3 / 100.0, (price3 * quantity3) / 100.0);
+        itemCounter++;
 
 //      7. Policz i wypisz, każde w osobnej linii i w jednej kolumnie:
 //      RAZEM NETTO    suma wartości pozycji
@@ -137,13 +141,11 @@ public class Main {
 //                - wypisz pożegnanie z samym imieniem klienta i literą następnej kasy:
 //        Dziękujemy, Anna · następna kasa B
 
-        int itemCounter = 0;
-        itemCounter++; // I don't know what assigment wants me to do here ?
-        itemCounter++; // I don't know what assigment wants me to do here ?
-        itemCounter++; // I don't know what assigment wants me to do here ?
+
+
         String footer = String.format(
                 "%s · %d pozycji · do zapłaty %s",
-                formatedShop,
+                formattedShop,
                 itemCounter,
                 formatToZl(toPay)
         );
