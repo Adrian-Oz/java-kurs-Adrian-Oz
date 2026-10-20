@@ -29,8 +29,12 @@ public class Main {
 
 //      Can be changed to for-each
         for (int i = 1; i < readings.length; i++) {
-            if (readings[i] < min) min = readings[i];
-            else if (readings[i] > max) max = readings[i];
+            if (readings[i] < min) {
+                min = readings[i];
+            }
+            else if (readings[i] > max) {
+                max = readings[i];
+            }
             sum += readings[i];
         }
 
@@ -38,7 +42,9 @@ public class Main {
         int aboveAvgCounter = 0;
 
         for (int item : readings) {
-            if (item > avg) aboveAvgCounter++;
+            if (item > avg) {
+                aboveAvgCounter++;
+            }
         }
 
         System.out.println("Average: " + avg);
@@ -47,8 +53,12 @@ public class Main {
         int[] copy = Arrays.copyOf(readings, readings.length);
         Arrays.sort(copy);
         double median;
-        if (copy.length % 2 == 0) median = ((double) copy[copy.length / 2] + (double) copy[copy.length / 2 - 1]) / 2;
-        else median = copy[copy.length / 2];
+        if (copy.length % 2 == 0) {
+            median = ((double) copy[copy.length / 2] + (double) copy[copy.length / 2 - 1]) / 2;
+        }
+        else {
+            median = copy[copy.length / 2];
+        }
 
         System.out.println("Median: " + median);
         System.out.println("Original: " + Arrays.toString(readings));
