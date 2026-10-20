@@ -28,7 +28,7 @@ public class Main {
         int min = readings[0];
 
 //      Can be changed to for-each
-        for(int i = 1; i < readings.length; i++) {
+        for (int i = 1; i < readings.length; i++) {
             if (readings[i] < min) min = readings[i];
             else if (readings[i] > max) max = readings[i];
             sum += readings[i];
@@ -54,6 +54,33 @@ public class Main {
         System.out.println("Original: " + Arrays.toString(readings));
         System.out.println("Copy: " + Arrays.toString(copy));
 
+
+        int[][] readingsArray = {
+                {10, 20, 30, 40},
+                {20, -10, 203, 20},
+                {10, 2, 0, 230, 20},
+        };
+
+
+        double buildingAvg = 0;
+        int buildingSum = 0;
+        double[] maxBuilding = {Double.NEGATIVE_INFINITY, 0};
+        for (int i = 0; i < readingsArray.length; i++) {
+            for (int j = 0; j < readingsArray[i].length; j++) {
+                buildingSum += readingsArray[i][j];
+
+            }
+            buildingAvg = (double) buildingSum / readingsArray[i].length;
+//            System.out.println("Building " + (i + 1) + " average: " + buildingAvg);
+            if (maxBuilding[0] < buildingAvg) {
+                maxBuilding[0] = buildingAvg;
+                maxBuilding[1] = i + 1;
+            }
+
+
+        }
+        System.out.println("Bulding with highest average : ");
+        System.out.println(Arrays.toString(maxBuilding));
 
         sc.close();
     }
