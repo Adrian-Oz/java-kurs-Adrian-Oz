@@ -76,12 +76,12 @@ public class Main {
         int buildingSum = 0;
         double[] maxBuilding = {Double.NEGATIVE_INFINITY, 0};
         for (int i = 0; i < readingsArray.length; i++) {
+            buildingSum=0;
             for (int j = 0; j < readingsArray[i].length; j++) {
                 buildingSum += readingsArray[i][j];
 
             }
             buildingAvg = (double) buildingSum / readingsArray[i].length;
-//            System.out.println("Building " + (i + 1) + " average: " + buildingAvg);
             if (maxBuilding[0] < buildingAvg) {
                 maxBuilding[0] = buildingAvg;
                 maxBuilding[1] = i + 1;
@@ -89,7 +89,7 @@ public class Main {
 
 
         }
-        System.out.println("Bulding with highest average : ");
+        System.out.println("Building with highest average : ");
         System.out.println(Arrays.toString(maxBuilding));
 
         sc.close();
