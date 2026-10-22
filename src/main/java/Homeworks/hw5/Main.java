@@ -25,29 +25,21 @@ public class Main {
             }
 
             String currentCardSpend = LoyaltyCard.formatMoney(centsPerCard[i]);
-            String currentCard  = cards[i];
+            String currentCard = cards[i];
             int currentCardPoints = LoyaltyCard.pointsFor(centsPerCard[i]);
             String currentCardBar = LoyaltyCard.drawBar(currentCardPoints);
 
             System.out.println("Card digits sum: " + LoyaltyCard.digitSum(cards[i]));
-            System.out.printf("Card %s has spend : %s%n", currentCard , currentCardSpend );
-            System.out.printf("Points: %d   %s%n", currentCardPoints , currentCardBar );
-
-
-
-
-
-
+            System.out.printf("Card %s has spend : %s%n", currentCard, currentCardSpend);
+            System.out.printf("Points: %d   %s%n", currentCardPoints, currentCardBar);
 
         }
 
         String testCard = "LC-123456";
-        int recursiveSum = LoyaltyCard.digitSumRecursive(testCard,3);
+        int recursiveSum = LoyaltyCard.digitSumRecursive(testCard, 3);
         int normalSum = LoyaltyCard.digitSum(testCard);
 
-        System.out.printf("Test card : %s | Recursive : %d | Normal : %d",testCard,recursiveSum,normalSum);
-
-
+        System.out.printf("Test card : %s | Recursive : %d | Normal : %d", testCard, recursiveSum, normalSum);
 
 
     }
