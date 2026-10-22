@@ -59,7 +59,7 @@ public class Product {
 
     public void addTag(String tag) {
         String newTag = tag.strip().toLowerCase();
-        if(newTag.isEmpty()){
+        if (newTag.isEmpty()) {
             throw new IllegalArgumentException("Tag cannot be empty");
         }
         this.tags.add(newTag);
@@ -68,6 +68,7 @@ public class Product {
     public List<String> getTags() {
         return List.copyOf(this.tags);
     }
+
     @Override
     public String toString() {
         return sku + " " + name + " — "
