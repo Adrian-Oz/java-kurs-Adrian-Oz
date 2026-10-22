@@ -31,8 +31,7 @@ public class Main {
         for (int i = 1; i < readings.length; i++) {
             if (readings[i] < min) {
                 min = readings[i];
-            }
-            else if (readings[i] > max) {
+            } else if (readings[i] > max) {
                 max = readings[i];
             }
             sum += readings[i];
@@ -55,8 +54,7 @@ public class Main {
         double median;
         if (copy.length % 2 == 0) {
             median = ((double) copy[copy.length / 2] + (double) copy[copy.length / 2 - 1]) / 2;
-        }
-        else {
+        } else {
             median = copy[copy.length / 2];
         }
 
@@ -76,7 +74,7 @@ public class Main {
         int buildingSum = 0;
         double[] maxBuilding = {Double.NEGATIVE_INFINITY, 0};
         for (int i = 0; i < readingsArray.length; i++) {
-            buildingSum=0;
+            buildingSum = 0;
             for (int j = 0; j < readingsArray[i].length; j++) {
                 buildingSum += readingsArray[i][j];
 
