@@ -125,7 +125,9 @@ public class Product {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Product product = (Product) o;
         return Objects.equals(sku, product.sku);
     }
@@ -138,8 +140,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return sku + " " + name + " — netto"
-                + String.format("%.2f", getNetPrice()) + " / brutto" + String.format("%.2f", getGrossPrice())
+        return sku + " " + name + " — netto "
+                + String.format("%.2f", getNetPrice()) + " / brutto " + String.format("%.2f", getGrossPrice())
                 + " zł";
     }
 
