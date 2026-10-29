@@ -120,6 +120,16 @@ public class Product {
         return List.copyOf(this.tags);
     }
 
+    public String getDescription() {
+        return name + " - " +getGrossPrice();
+    }
+    public double getShippingCost() {
+        return 19.99d;
+    }
+    public final double getTotalPrice(){
+        return getGrossPrice()+getShippingCost();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
