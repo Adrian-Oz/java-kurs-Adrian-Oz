@@ -2,8 +2,8 @@ package oop;
 
 public class Electronics extends Product {
 
-    public Electronics(Product other, int warrantyMonths) {
-        super(other);
+    public Electronics(String sku, String name, double netPrice, int warrantyMonths) {
+        super(sku, name, netPrice);
         this.warrantyMonths = warrantyMonths;
     }
 
@@ -19,7 +19,12 @@ public class Electronics extends Product {
         if (this.getGrossPrice() > 2000) {
             return 0;
         }
-        return super.getShippingCost();
+        return 19.99d;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Electronics";
     }
 
 //     public double getTotalPrice(){
