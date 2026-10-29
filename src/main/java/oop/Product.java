@@ -2,15 +2,24 @@ package oop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Product {
+
+    private static int createdCount;
+
+    public static int getCreatedCount() {
+        return createdCount;
+    }
+
+    static final double DEFAULT_VAT_RATE = 0.23;
 
     private final String sku;
     private final String name;
     private double netPrice;
     private final List<String> tags;
 
-    public Product(String sku, String name, double netPrice) {
+    private Product(String sku, String name, double netPrice) {
         if (sku.isEmpty() || !sku.equals(sku.toUpperCase()) || !sku.equals(sku.strip())) {
             throw new IllegalArgumentException("Sku must not be empty , contain all uppercase and can't contain whitespace at the beginning or end.");
         }
@@ -24,7 +33,38 @@ public class Product {
         this.name = name;
         this.netPrice = netPrice;
         this.tags = new ArrayList<String>();
+        createdCount++;
     }
+
+    public Product(Product other) {
+        this(other.sku, other.name, other.netPrice);
+        this.tags.addAll(other.tags);
+    }
+
+
+    public static Product of(String sku, String name, double netPrice) {
+        return new Product(sku, name, netPrice);
+    }
+
+    public static Product fromCsvLine(String line) {
+        String[] csvLineParts = line.split(";");
+        if (csvLineParts.length != 3) {
+            throw new IllegalArgumentException(line);
+        }
+        double price = Double.parseDouble(csvLineParts[2]);
+        if (csvLineParts[0].isEmpty() || !csvLineParts[0].equals(csvLineParts[0].toUpperCase()) || !csvLineParts[0].equals(csvLineParts[0].strip())) {
+            throw new IllegalArgumentException(line);
+        }
+        if (csvLineParts[1].isEmpty() || !csvLineParts[1].equals(csvLineParts[1].strip())) {
+            throw new IllegalArgumentException(line);
+        }
+        if (price <= 0) {
+            throw new IllegalArgumentException(line);
+        }
+        return new Product(csvLineParts[0], csvLineParts[1], price);
+
+    }
+
 
     public String getSku() {
         return sku;
@@ -36,6 +76,10 @@ public class Product {
 
     public double getNetPrice() {
         return netPrice;
+    }
+
+    public double getGrossPrice() {
+        return getNetPrice() * (1 + DEFAULT_VAT_RATE);
     }
 
     public void raisePriceBy(double percent) {
@@ -65,15 +109,40 @@ public class Product {
         this.tags.add(newTag);
     }
 
+    public Product addTags(String... tags) {
+        for (String tag : tags) {
+            addTag(tag);
+        }
+        return this;
+    }
+
     public List<String> getTags() {
         return List.copyOf(this.tags);
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Product product = (Product) o;
+        return Objects.equals(sku, product.sku);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(sku);
+    }
+
+    @Override
     public String toString() {
-        return sku + " " + name + " — "
-                + String.format("%.2f", netPrice)
-                + " zł [" + String.join(", ", tags) + "]";
+        return sku + " " + name + " — netto "
+                + String.format("%.2f", getNetPrice()) + " / brutto " + String.format("%.2f", getGrossPrice())
+                + " zł";
     }
 
 }
