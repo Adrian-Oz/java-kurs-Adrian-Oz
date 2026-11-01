@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Warehouse {
 
-    List<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
 
     public void addProduct(Product item) {
