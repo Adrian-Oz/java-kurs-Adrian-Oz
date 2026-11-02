@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Product {
+public abstract class Product implements Identifiable<String>, Comparable<Product> {
 
     private static int createdCount;
 
@@ -36,6 +36,10 @@ public abstract class Product {
         createdCount++;
     }
 
+    @Override
+    public String getId() {
+        return getSku();
+    }
 
     public String getSku() {
         return sku;
@@ -130,6 +134,11 @@ public abstract class Product {
         return sku + " " + name + " — netto "
                 + String.format("%.2f", getNetPrice()) + " / brutto " + String.format("%.2f", getGrossPrice())
                 + " zł";
+    }
+
+
+    public int compareTo(Product other) {
+        return Double.compare(this.getGrossPrice(), other.getGrossPrice());
     }
 
 }
