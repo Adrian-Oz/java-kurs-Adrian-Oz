@@ -1,8 +1,8 @@
 package oop;
 
 public class DigitalProduct extends Product {
-    public DigitalProduct(Product other, String downloadUrl) {
-        super(other);
+    public DigitalProduct(String sku, String name, double netPrice, String downloadUrl) {
+        super(sku, name, netPrice);
         this.downloadUrl = downloadUrl;
     }
 
@@ -16,5 +16,10 @@ public class DigitalProduct extends Product {
     @Override
     public double getShippingCost() {
         return 0;
+    }
+
+    @Override
+    public String getCategory() {
+        return "DigitalProduct";
     }
 }
