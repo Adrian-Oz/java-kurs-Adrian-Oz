@@ -121,13 +121,15 @@ public class Product {
     }
 
     public String getDescription() {
-        return name + " - " +getGrossPrice();
+        return name + " - " + getGrossPrice();
     }
+
     public double getShippingCost() {
         return 19.99d;
     }
-    public final double getTotalPrice(){
-        return getGrossPrice()+getShippingCost();
+
+    public final double getTotalPrice() {
+        return getGrossPrice() + getShippingCost();
     }
 
     @Override
