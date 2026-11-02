@@ -10,8 +10,8 @@ public class PercentageDiscount implements DiscountPolicy {
 
     @Override
     public double apply(double price) {
-        double newPrice = price * (100-discount)/100;
-        return Math.max(newPrice,0.01);
+        double newPrice = price * (100 - discount) / 100;
+        return Math.max(newPrice, 0.01);
     }
 
     @Override

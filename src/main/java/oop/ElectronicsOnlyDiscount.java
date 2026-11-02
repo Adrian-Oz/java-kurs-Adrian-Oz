@@ -1,10 +1,10 @@
 package oop;
 
-public class ElectronicsOnlyDiscount implements DiscountPolicy{
+public class ElectronicsOnlyDiscount implements DiscountPolicy {
 
     @Override
     public double apply(double price) {
-    return price *0.9;
+        return price * 0.9;
     }
 
     @Override
