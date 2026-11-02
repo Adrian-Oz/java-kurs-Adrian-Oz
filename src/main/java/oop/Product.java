@@ -104,7 +104,7 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
     public abstract String getCategory();
 
     public final String getLabel() {
-        return String.format("%s [%s] - %.2f zł (z wysyłką %.2f zł", getName(), getCategory(), getGrossPrice(), (getGrossPrice() + getShippingCost()));
+        return String.format("%s [%s] - %.2f zł (z wysyłką %.2f zł)", getName(), getCategory(), getGrossPrice(), (getGrossPrice() + getShippingCost()));
     }
 
     public final double getTotalPrice() {
