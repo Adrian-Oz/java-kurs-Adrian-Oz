@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Warehouse {
 
-    List<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
 
     public void addProduct(Product item) {
@@ -23,7 +23,6 @@ public class Warehouse {
     }
 
 
-
     public List<Product> getAll() {
         return List.copyOf(products);
     }
@@ -31,7 +30,7 @@ public class Warehouse {
     public double getTotalValue() {
         double sum = 0;
         for (Product item : products) {
-            sum += item.getGrossPrice();
+            sum += item.getTotalPrice();
         }
         return sum;
     }
