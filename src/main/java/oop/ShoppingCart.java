@@ -34,6 +34,7 @@ public class ShoppingCart {
         }
         return cartTotal;
     }
+
     public String getReceipt() {
         StringBuilder sb = new StringBuilder();
 
@@ -41,7 +42,7 @@ public class ShoppingCart {
             sb.append(item.toString())
                     .append(System.lineSeparator());
         }
-        sb.append("Total value after discount : ").append(String.format("%.2f",getTotal()));
+        sb.append("Total value after discount : ").append(String.format("%.2f", getTotal()));
 
         return sb.toString();
     }
