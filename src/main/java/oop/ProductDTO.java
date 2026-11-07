@@ -6,7 +6,20 @@ record ProductDTO(String sku, String name, double netPrice, Category category) {
         if (sku == null || sku.isBlank()) {
             throw new IllegalArgumentException("Product number is required");
         }
+        if (name == null || name.isBlank() || !name.equals(name.strip())) {
+            throw new IllegalArgumentException(
+                    "Name must not be empty or contain whitespace at the beginning or end."
+            );
+        }
+        if (netPrice <= 0) {
+            throw new IllegalArgumentException("Price has to be a positive number");
+        }
+        if (category == null) {
+            throw new IllegalArgumentException("Category is required");
+        }
         sku = sku.strip().toUpperCase();
+
+
     }
 
     public double grossPrice() {

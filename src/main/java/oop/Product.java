@@ -57,7 +57,7 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
     }
 
     public double getGrossPrice() {
-        return getNetPrice() * (1 + DEFAULT_VAT_RATE);
+        return getNetPrice() * (1 + category.getVatRate());
     }
 
     public void raisePriceBy(double percent) {
