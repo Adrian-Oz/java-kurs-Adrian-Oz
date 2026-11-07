@@ -1,11 +1,16 @@
 package oop;
 
+import java.math.BigDecimal;
+
 public class ElectronicsOnlyDiscount implements DiscountPolicy {
 
     @Override
-    public double apply(double price) {
-        return price * 0.9;
+    public Money apply(Money price) {
+//        return price.amount() * 0.9;
+        return new Money(price.amount().multiply(new BigDecimal("0.9")),price.currency());
     }
+
+
 
     @Override
     public String getName() {

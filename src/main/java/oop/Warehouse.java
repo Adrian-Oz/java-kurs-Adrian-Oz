@@ -37,10 +37,11 @@ public class Warehouse<T extends Identifiable<String>> {
         return copy;
 
     }
-    static double sumPrices(List<? extends Product> products) {
-        double sum =0;
-        for( Product item : products ) {
-            sum+= item.getTotalPrice();
+
+    static Money sumPrices(List<? extends Product> products) {
+        Money sum = Money.zero("Zł");
+        for (Product item : products) {
+            sum.add(item.getTotalPrice());
         }
         return sum;
     }

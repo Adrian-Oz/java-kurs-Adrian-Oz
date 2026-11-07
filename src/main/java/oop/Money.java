@@ -28,20 +28,20 @@ public record Money(BigDecimal amount, String currency) {
 
     public Money subtract(Money other) {
         BigDecimal newAmount = this.amount.subtract(other.amount);
-        if(newAmount.signum() <0) {
-            throw  new IllegalArgumentException("Amount after subtracting must be positive");
+        if (newAmount.signum() < 0) {
+            throw new IllegalArgumentException("Amount after subtracting must be positive");
         }
-        return new Money(newAmount , this.currency);
+        return new Money(newAmount, this.currency);
     }
 
-    public Money multiply(int quantity) {
-        return new Money(this.amount.multiply(BigDecimal.valueOf(quantity)),this.currency);
+    public Money multiply(double quantity) {
+        return new Money(this.amount.multiply(BigDecimal.valueOf(quantity)), this.currency);
     }
 
     public Money applyPercent(double percent) {
-        BigDecimal totalPercent = BigDecimal.valueOf((100 + percent)/100);
+        BigDecimal totalPercent = BigDecimal.valueOf((100 + percent) / 100);
 
-        return new Money(this.amount.multiply(totalPercent),this.currency);
+        return new Money(this.amount.multiply(totalPercent), this.currency);
     }
 
     public boolean isGreaterThan(Money other) {
@@ -49,15 +49,15 @@ public record Money(BigDecimal amount, String currency) {
     }
 
     static Money zero(String currency) {
-        return new Money(BigDecimal.ZERO , currency);
+        return new Money(BigDecimal.ZERO, currency);
     }
 
     static Money of(String amount, String currency) {
-        return new Money(new BigDecimal(amount),currency);
+        return new Money(new BigDecimal(amount), currency);
     }
 
     @Override
     public String toString() {
-        return String.format("%.2f %s",this.amount,this.currency);
+        return String.format("%.2f %s", this.amount, this.currency);
     }
 }

@@ -1,28 +1,31 @@
 package oop;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Main {
     public static void main(String[] args) {
 
 
-        Electronics e1 = new Electronics("ELEC-1", "PC", 20.00, Category.ELECTRONICS, 24);
-        FoodProduct f1 = new FoodProduct("FOOD-1", "Milk", 10.00, Category.FOOD, "2026-10-15");
-        ProductDTO prod1 = ProductDTO.fromCsvLine("ELEC-001;Laptop;10.00;ELECTRONICS");
-        ProductDTO prod2 = ProductDTO.fromCsvLine("FOOD-002;Rum;20.00;ALCOHOL");
-        ProductDTO prod3 = ProductDTO.fromCsvLine("FOOD-003;Banany;30.00;FOOD");
-        ProductDTO prod4 = ProductDTO.fromCsvLine("BOOK-004;ShadowSlave;40.00;BOOKS");
-        ProductDTO prod5 = ProductDTO.fromCsvLine(";AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;-10;ELECTRONICS");
+        ProductDTO prod1 = ProductDTO.fromCsvLine("ELEC-001;Laptop;10.00 Zł;ELECTRONICS");
+        ProductDTO prod2 = ProductDTO.fromCsvLine("FOOD-002;Rum;20.00 Zł;ALCOHOL");
+        ProductDTO prod3 = ProductDTO.fromCsvLine("FOOD-003;Banany;30.00 Zł;FOOD");
+        ProductDTO prod4 = ProductDTO.fromCsvLine("BOOK-004;ShadowSlave;40.00 Zł;BOOKS");
 
-        List<String> erorrs = ProductValidator.validate(prod5);
-        List<String> erorrs2 = ProductValidator.validate(prod1);
 
-        System.out.println(erorrs);
-        System.out.println(erorrs2);
+        InvoiceLine line1 = new InvoiceLine(prod1, 4);
+        InvoiceLine line2 = new InvoiceLine(prod2, 10);
+        InvoiceLine line3 = new InvoiceLine(prod3, 5);
+        InvoiceLine line4 = new InvoiceLine(prod4, 20);
 
+
+        Invoice inv1 = new Invoice();
+        inv1.addLine(line1);
+        inv1.addLine(line2);
+        inv1.addLine(line3);
+        inv1.addLine(line4);
+
+        System.out.println(inv1.getVatSummary());
+
+        System.out.println(inv1.render());
 
     }
 }
