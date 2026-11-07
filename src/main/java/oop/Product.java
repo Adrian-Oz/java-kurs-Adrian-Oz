@@ -18,8 +18,9 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
     private final String name;
     private double netPrice;
     private final List<String> tags;
+    private final Category category;
 
-    public Product(String sku, String name, double netPrice) {
+    public Product(String sku, String name, double netPrice, Category category) {
         if (sku.isEmpty() || !sku.equals(sku.toUpperCase()) || !sku.equals(sku.strip())) {
             throw new IllegalArgumentException("Sku must not be empty , contain all uppercase and can't contain whitespace at the beginning or end.");
         }
@@ -32,7 +33,9 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
         this.sku = sku;
         this.name = name;
         this.netPrice = netPrice;
+        this.category = category;
         this.tags = new ArrayList<String>();
+
         createdCount++;
     }
 
@@ -54,7 +57,7 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
     }
 
     public double getGrossPrice() {
-        return getNetPrice() * (1 + DEFAULT_VAT_RATE);
+        return getNetPrice() * (1 + category.getVatRate());
     }
 
     public void raisePriceBy(double percent) {
@@ -101,7 +104,9 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
 
     public abstract double getShippingCost();
 
-    public abstract String getCategory();
+    public Category getCategory() {
+        return this.category;
+    }
 
     public final String getLabel() {
         return String.format("%s [%s] - %.2f zł (z wysyłką %.2f zł)", getName(), getCategory(), getGrossPrice(), (getGrossPrice() + getShippingCost()));

@@ -14,6 +14,6 @@ public class ElectronicsOnlyDiscount implements DiscountPolicy {
 
     @Override
     public boolean appliesTo(Product p) {
-        return p.getCategory().equals("Electronics");
+        return p.getCategory().equals(Category.ELECTRONICS);
     }
 }
