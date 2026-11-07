@@ -15,32 +15,14 @@ public class Main {
         ProductDTO prod2 = ProductDTO.fromCsvLine("FOOD-002;Rum;20.00;ALCOHOL");
         ProductDTO prod3 = ProductDTO.fromCsvLine("FOOD-003;Banany;30.00;FOOD");
         ProductDTO prod4 = ProductDTO.fromCsvLine("BOOK-004;ShadowSlave;40.00;BOOKS");
-        ProductDTO prod5 = ProductDTO.fromCsvLine("ELEC-005;PC;50.00;ELECTRONICS");
+        ProductDTO prod5 = ProductDTO.fromCsvLine(";AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;-10;ELECTRONICS");
 
-        List<ProductDTO> products = List.of(
-                prod1,
-                prod2,
-                prod3,
-                prod4,
-                prod5
-        );
+        List<String> erorrs = ProductValidator.validate(prod5);
+        List<String> erorrs2 = ProductValidator.validate(prod1);
 
+        System.out.println(erorrs);
+        System.out.println(erorrs2);
 
-        System.out.println("Ceny brutto :");
-        System.out.printf("%.2f%n", prod1.grossPrice());
-        System.out.printf("%.2f%n", prod2.grossPrice());
-        System.out.printf("%.2f%n", prod3.grossPrice());
-        System.out.printf("%.2f%n", prod4.grossPrice());
-        System.out.printf("%.2f%n", prod5.grossPrice());
-
-
-        Map<Category, Integer> categoryCounts = new HashMap<>();
-        for (ProductDTO item : products) {
-            Category category = item.category();
-            categoryCounts.put(category, categoryCounts.getOrDefault(category, 0) + 1);
-
-        }
-        System.out.println(categoryCounts.toString());
 
     }
 }
