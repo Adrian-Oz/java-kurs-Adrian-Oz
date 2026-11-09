@@ -26,7 +26,7 @@ public class ShoppingCart {
         Money cartTotal = Money.zero("Zł");
         for (Product item : cart) {
             if (policy.appliesTo(item)) {
-                cartTotal.add(policy.apply(item.getGrossPrice()));
+                cartTotal = cartTotal.add(policy.apply(item.getGrossPrice()));
             } else {
                 cartTotal.add(item.getGrossPrice());
             }

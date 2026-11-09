@@ -63,7 +63,8 @@ public class Invoice {
             invoiceString.append((String.format("%-25s %5s %12s%n", line.product().sku(), line.quantity(), line.netValue())));
         }
         invoiceString.append(String.format("%-33s %5s %n", "Total net value:", getTotalNet()));
-        invoiceString.append(String.format("%-33s %5s %n", "Total net gross:", getTotalGross()));
+        invoiceString.append(String.format("%-33s %5s %n", "Total vat value:", getTotalVat()));
+        invoiceString.append(String.format("%-33s %5s %n", "Total gross value:", getTotalGross()));
         return invoiceString.toString();
 
     }

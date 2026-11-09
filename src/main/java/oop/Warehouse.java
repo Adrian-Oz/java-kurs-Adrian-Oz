@@ -41,7 +41,7 @@ public class Warehouse<T extends Identifiable<String>> {
     static Money sumPrices(List<? extends Product> products) {
         Money sum = Money.zero("Zł");
         for (Product item : products) {
-            sum.add(item.getTotalPrice());
+            sum = sum.add(item.getTotalPrice());
         }
         return sum;
     }
