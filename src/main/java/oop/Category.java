@@ -1,5 +1,6 @@
 package oop;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,8 @@ public enum Category {
         return requiresAgeVerification;
     }
 
-    public double calculateGross(double net) {
-        return net * (1 + vatRate);
+    public BigDecimal calculateGross(Money money) {
+        return money.amount().multiply(BigDecimal.valueOf(1 + vatRate));
     }
 
     static List<Category> withoutAgeCheck() {

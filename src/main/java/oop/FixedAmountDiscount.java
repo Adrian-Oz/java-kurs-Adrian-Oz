@@ -1,6 +1,8 @@
 package oop;
 
-public class FixedAmountDiscount implements DiscountPolicy{
+import java.math.BigDecimal;
+
+public class FixedAmountDiscount implements DiscountPolicy {
 
     private final double discount;
 
@@ -10,10 +12,17 @@ public class FixedAmountDiscount implements DiscountPolicy{
 
 
     @Override
-    public double apply(double price) {
-        double newPrice = price - discount;
+    public Money apply(Money price) {
+//        Money newPrice = price - discount;
+        Money newPrice = new Money(price.amount().subtract(BigDecimal.valueOf(discount)), price.currency());
         //IntelliJ suggestion.
-        return Math.max(newPrice, 0.01d);
+//        return Math.max(newPrice, new Money(new BigDecimal("0.01"),price.currency()));
+        Money minPrice = new Money(new BigDecimal("0.01"),price.currency());
+        if (!(newPrice.isGreaterThan(minPrice))) {
+            return minPrice;
+        }
+
+        return newPrice;
     }
 
     @Override

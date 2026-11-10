@@ -1,5 +1,7 @@
 package oop;
 
+import java.math.BigDecimal;
+
 public class PercentageDiscount implements DiscountPolicy {
 
     private final double discount;
@@ -9,9 +11,14 @@ public class PercentageDiscount implements DiscountPolicy {
     }
 
     @Override
-    public double apply(double price) {
-        double newPrice = price * (100 - discount) / 100;
-        return Math.max(newPrice, 0.01);
+    public Money apply(Money price) {
+//        double newPrice = price * (100 - discount) / 100;
+        Money newPrice = price.applyPercent(discount);
+        Money minPrice = new Money(new BigDecimal("0.01"),price.currency());
+        if (!(newPrice.isGreaterThan(minPrice))) {
+            return minPrice;
+        }
+        return newPrice;
     }
 
     @Override

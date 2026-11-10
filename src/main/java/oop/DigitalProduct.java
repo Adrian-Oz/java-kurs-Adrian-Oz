@@ -1,7 +1,7 @@
 package oop;
 
 public class DigitalProduct extends Product {
-    public DigitalProduct(String sku, String name, double netPrice, Category category, String downloadUrl) {
+    public DigitalProduct(String sku, String name, Money netPrice, Category category, String downloadUrl) {
         super(sku, name, netPrice, category);
         this.downloadUrl = downloadUrl;
     }

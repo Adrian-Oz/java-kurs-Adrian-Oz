@@ -22,13 +22,13 @@ public class ShoppingCart {
         cart.removeIf(product -> product.getSku().equals(sku));
     }
 
-    public double getTotal() {
-        double cartTotal = 0;
+    public Money getTotal() {
+        Money cartTotal = Money.zero("Zł");
         for (Product item : cart) {
             if (policy.appliesTo(item)) {
-                cartTotal += policy.apply(item.getGrossPrice());
+                cartTotal = cartTotal.add(policy.apply(item.getGrossPrice()));
             } else {
-                cartTotal += item.getGrossPrice();
+                cartTotal.add(item.getGrossPrice());
             }
 
         }
@@ -42,7 +42,7 @@ public class ShoppingCart {
             sb.append(item.toString())
                     .append(System.lineSeparator());
         }
-        sb.append("Total value after discount : ").append(String.format("%.2f", getTotal()));
+        sb.append("Total value after discount : ").append(String.format("%.2f", getTotal().amount()));
 
         return sb.toString();
     }

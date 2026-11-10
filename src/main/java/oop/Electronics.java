@@ -1,8 +1,10 @@
 package oop;
 
+import java.math.BigDecimal;
+
 public class Electronics extends Product {
 
-    public Electronics(String sku, String name, double netPrice, Category category, int warrantyMonths) {
+    public Electronics(String sku, String name, Money netPrice, Category category, int warrantyMonths) {
         super(sku, name, netPrice, category);
         this.warrantyMonths = warrantyMonths;
     }
@@ -16,7 +18,7 @@ public class Electronics extends Product {
 
     @Override
     public double getShippingCost() {
-        if (this.getGrossPrice() > 2000) {
+        if (this.getGrossPrice().amount().compareTo(BigDecimal.valueOf(2000)) > 0) {
             return 0;
         }
         return 19.99d;

@@ -3,7 +3,7 @@ package oop;
 import java.time.LocalDate;
 
 public class FoodProduct extends Product implements Perishable {
-    public FoodProduct(String sku, String name, double netPrice, Category category, String expiryDate) {
+    public FoodProduct(String sku, String name, Money netPrice, Category category, String expiryDate) {
         super(sku, name, netPrice, category);
         this.expiryDate = expiryDate;
     }
