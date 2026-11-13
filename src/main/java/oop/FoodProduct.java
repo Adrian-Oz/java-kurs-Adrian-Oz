@@ -5,8 +5,8 @@ import lombok.Getter;
 import java.time.LocalDate;
 @Getter
 public class FoodProduct extends Product implements Perishable {
-    public FoodProduct(String sku, String name, Money netPrice, Category category, String expiryDate) {
-        super(sku, name, netPrice, category);
+    public FoodProduct(String sku, String name, Money netPrice, Category category, String expiryDate,Supplier supplier) {
+        super(sku, name, netPrice, category,supplier);
         this.expiryDate = expiryDate;
     }
 

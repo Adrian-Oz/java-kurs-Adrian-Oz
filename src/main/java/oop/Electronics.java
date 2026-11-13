@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 @Getter
 public class Electronics extends Product {
 
-    public Electronics(String sku, String name, Money netPrice, Category category, int warrantyMonths) {
-        super(sku, name, netPrice, category);
+    public Electronics(String sku, String name, Money netPrice, Category category, int warrantyMonths , Supplier supplier) {
+        super(sku, name, netPrice, category,supplier);
         this.warrantyMonths = warrantyMonths;
     }
 
