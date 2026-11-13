@@ -1,58 +1,59 @@
 package oop;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
+@Getter
 public abstract class Product implements Identifiable<String>, Comparable<Product> {
 
     private static int createdCount;
-
-    public static int getCreatedCount() {
-        return createdCount;
-    }
-
     static final double DEFAULT_VAT_RATE = 0.23;
 
     private final String sku;
     private final String name;
     private Money netPrice;
-    private final List<String> tags;
     private final Category category;
+    @Getter(AccessLevel.NONE)
+    private final List<String> tags;
+    private final Supplier supplier;
 
-    public Product(String sku, String name, Money netPrice, Category category) {
+
+    public Product(String sku, String name, Money netPrice, Category category, Supplier supplier) {
         if (sku.isEmpty() || !sku.equals(sku.toUpperCase()) || !sku.equals(sku.strip())) {
             throw new IllegalArgumentException("Sku must not be empty , contain all uppercase and can't contain whitespace at the beginning or end.");
         }
         if (name.isEmpty() || !name.equals(name.strip())) {
             throw new IllegalArgumentException("Name must not be empty or contain whitespace at the beginning or end.");
         }
-//        Done by Money constructor
-//        if (netPrice <= 0) {
-//            throw new IllegalArgumentException("Price has to be a positive number");
-//        }
+
+        this.supplier = supplier;
         this.sku = sku;
         this.name = name;
         this.netPrice = netPrice;
         this.category = category;
         this.tags = new ArrayList<String>();
-
         createdCount++;
     }
 
-    @Override
-    public String getId() {
-        return getSku();
+
+    public Optional<Supplier> findSupplier() {
+        return Optional.ofNullable(supplier);
     }
 
-    public String getSku() {
-        return sku;
+    public abstract double getShippingCost();
+
+    public abstract String getLabel();
+
+    public final Money getTotalPrice() {
+        return new Money(getGrossPrice().amount().add(BigDecimal.valueOf(getShippingCost())), this.netPrice.currency());
     }
 
-    public String getName() {
-        return name;
-    }
 
     public Money getNetPrice() {
         return new Money(netPrice.amount(), this.netPrice.currency());
@@ -102,20 +103,6 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
 
     public String getDescription() {
         return name + " - " + getGrossPrice();
-    }
-
-    public abstract double getShippingCost();
-
-    public Category getCategory() {
-        return this.category;
-    }
-
-    public final String getLabel() {
-        return String.format("%s [%s] - %.2f zł (z wysyłką %.2f zł)", getName(), getCategory(), getGrossPrice().amount(), getTotalPrice().amount());
-    }
-
-    public final Money getTotalPrice() {
-        return new Money(getGrossPrice().amount().add(BigDecimal.valueOf(getShippingCost())), this.netPrice.currency());
     }
 
     @Override

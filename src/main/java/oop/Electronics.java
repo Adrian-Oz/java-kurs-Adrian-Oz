@@ -1,11 +1,13 @@
 package oop;
 
-import java.math.BigDecimal;
+import lombok.Getter;
 
+import java.math.BigDecimal;
+@Getter
 public class Electronics extends Product {
 
-    public Electronics(String sku, String name, Money netPrice, Category category, int warrantyMonths) {
-        super(sku, name, netPrice, category);
+    public Electronics(String sku, String name, Money netPrice, Category category, int warrantyMonths , Supplier supplier) {
+        super(sku, name, netPrice, category,supplier);
         this.warrantyMonths = warrantyMonths;
     }
 
@@ -29,6 +31,15 @@ public class Electronics extends Product {
         return super.getCategory();
     }
 
+    @Override
+    public String getId() {
+        return getSku();
+    }
+
+    @Override
+    public String getLabel() {
+        return String.format("%s [%s] - %.2f zł (z wysyłką %.2f zł)", getName(), getCategory(), getGrossPrice().amount(), getTotalPrice().amount());
+    }
 //     public double getTotalPrice(){
 //        return getGrossPrice()+getShippingCost();
 //    }
