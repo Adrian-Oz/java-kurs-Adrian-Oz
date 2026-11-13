@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Getter
 public abstract class Product implements Identifiable<String>, Comparable<Product> {
@@ -20,8 +21,10 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
     private final Category category;
     @Getter(AccessLevel.NONE)
     private final List<String> tags;
+    private final Supplier supplier;
 
-    public Product(String sku, String name, Money netPrice, Category category) {
+
+    public Product(String sku, String name, Money netPrice, Category category, Supplier supplier) {
         if (sku.isEmpty() || !sku.equals(sku.toUpperCase()) || !sku.equals(sku.strip())) {
             throw new IllegalArgumentException("Sku must not be empty , contain all uppercase and can't contain whitespace at the beginning or end.");
         }
@@ -29,13 +32,18 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
             throw new IllegalArgumentException("Name must not be empty or contain whitespace at the beginning or end.");
         }
 
+        this.supplier = supplier;
         this.sku = sku;
         this.name = name;
         this.netPrice = netPrice;
         this.category = category;
         this.tags = new ArrayList<String>();
-
         createdCount++;
+    }
+
+
+    public Optional<Supplier> findSupplier() {
+        return Optional.ofNullable(supplier);
     }
 
     public abstract double getShippingCost();
