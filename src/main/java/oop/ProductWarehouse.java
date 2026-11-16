@@ -118,10 +118,10 @@ public class ProductWarehouse extends Warehouse<Product> {
                 .orElse("central warehouse");
     }
 
-     Optional<Product> findBySkuAndMinStock(String sku, int minStock) {
+    Optional<Product> findBySkuAndMinStock(String sku, int minStock) {
         return findByID(sku)
-                .filter(product -> product.getStock()>=minStock);
-     }
+                .filter(product -> product.getStock() >= minStock);
+    }
 
     public List<String> collectSupplierCities() {
         //Hashset will prevent repetitions
@@ -139,7 +139,21 @@ public class ProductWarehouse extends Warehouse<Product> {
 
     public Product getOrThrow(String sku) {
         return findByID(sku)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Sku: %s", sku)));
+                .orElseThrow(() -> new ProductNotFoundException(sku));
 
+    }
+
+
+    public OrderResult processOrder(List<String> skus) {
+        ArrayList<Product> accepted = new ArrayList<>();
+        ArrayList<String> denied = new ArrayList<>();
+        for (String sku : skus) {
+            try {
+                accepted.add(getOrThrow(sku));
+            } catch (ProductNotFoundException e) {
+                denied.add(sku);
+            }
+        }
+        return new OrderResult(accepted,denied);
     }
 }
