@@ -60,15 +60,23 @@ public class ProductWarehouse extends Warehouse<Product> {
     }
 
     public Optional<String> findSupplierName(String sku) {
-        return findByID(sku).flatMap(Product::findSupplier).map(Supplier::name);
+        return findByID(sku)
+                .flatMap(Product::findSupplier)
+                .map(Supplier::name);
     }
 
     public Optional<String> findSupplierEmail(String sku) {
-        return findByID(sku).flatMap(Product::findSupplier).flatMap(Supplier::findEmail);
+        return findByID(sku)
+                .flatMap(Product::findSupplier)
+                .flatMap(Supplier::findEmail);
     }
 
     public Optional<String> findSupplierCity(String sku) {
-        return findByID(sku).flatMap(Product::findSupplier).flatMap(Supplier::findAddress).map(Address::city).map(String::toUpperCase);
+        return findByID(sku)
+                .flatMap(Product::findSupplier)
+                .flatMap(Supplier::findAddress)
+                .map(Address::city)
+                .map(String::toUpperCase);
     }
 
     public String getSupplierLabel1(String sku) {
@@ -86,21 +94,34 @@ public class ProductWarehouse extends Warehouse<Product> {
                 })).orElse("Missing supplier data");
     }
 
-    //  5. Unclear instructions, stock ?
+
     public Optional<String> findEmailForContact(String sku) {
-        return findByID(sku).flatMap(Product::findSupplier).flatMap(Supplier::findEmail).filter(e -> e.contains("@"));
+        return findByID(sku)
+                .filter(product -> product.getStock() > 0)
+                .flatMap(Product::findSupplier)
+                .flatMap(Supplier::findEmail)
+                .filter(e -> e.contains("@"));
     }
 
     public Optional<Address> findAddressOfCheapest() {
-        return findCheapest().flatMap(Product::findSupplier).flatMap(Supplier::findAddress);
+        return findCheapest()
+                .flatMap(Product::findSupplier)
+                .flatMap(Supplier::findAddress);
     }
 
     public String getShippingCity(String sku) {
-        return findByID(sku).map(Product::getSupplier).flatMap(Supplier::findAddress).map(Address::city).map(s -> String.format("Shipping city: %s", s)).orElse("central warehouse");
+        return findByID(sku)
+                .map(Product::getSupplier)
+                .flatMap(Supplier::findAddress)
+                .map(Address::city)
+                .map(s -> String.format("Shipping city: %s", s))
+                .orElse("central warehouse");
     }
 
-//    8. Unclear instructions, stock ?
-//     Optional<Product> findBySkuAndMinStock(String sku, int minStock)
+     Optional<Product> findBySkuAndMinStock(String sku, int minStock) {
+        return findByID(sku)
+                .filter(product -> product.getStock()>=minStock);
+     }
 
     public List<String> collectSupplierCities() {
         //Hashset will prevent repetitions
@@ -117,7 +138,8 @@ public class ProductWarehouse extends Warehouse<Product> {
     }
 
     public Product getOrThrow(String sku) {
-        return findByID(sku).orElseThrow(()-> new IllegalArgumentException(String.format("Sku: %s",sku)));
+        return findByID(sku)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Sku: %s", sku)));
 
     }
 }

@@ -2,6 +2,7 @@ package oop;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
     @Getter(AccessLevel.NONE)
     private final List<String> tags;
     private final Supplier supplier;
+    @Setter
+    private int stock;
 
 
     public Product(String sku, String name, Money netPrice, Category category, Supplier supplier) {
@@ -38,9 +41,9 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
         this.netPrice = netPrice;
         this.category = category;
         this.tags = new ArrayList<String>();
+        this.stock = 0;
         createdCount++;
     }
-
 
     public Optional<Supplier> findSupplier() {
         return Optional.ofNullable(supplier);
@@ -134,4 +137,8 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
         return this.netPrice.amount().compareTo(other.netPrice.amount());
     }
 
+    @Override
+    public String getId() {
+        return getSku();
+    }
 }
