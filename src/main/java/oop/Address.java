@@ -1,4 +1,4 @@
 package oop;
 
-public record Address(String name, String city, String postalCode) {
+public record Address(String street, String city, String postalCode) {
 }

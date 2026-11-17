@@ -79,7 +79,7 @@ public class ProductWarehouse extends Warehouse<Product> {
                 .map(String::toUpperCase);
     }
 
-    public String getSupplierLabel1(String sku) {
+    public String getSupplierLabel(String sku) {
         return findByID(sku)
                 .flatMap(Product::findSupplier)
                 .map((supplier -> {
@@ -118,7 +118,7 @@ public class ProductWarehouse extends Warehouse<Product> {
                 .orElse("central warehouse");
     }
 
-    Optional<Product> findBySkuAndMinStock(String sku, int minStock) {
+     public Optional<Product> findBySkuAndMinStock(String sku, int minStock) {
         return findByID(sku)
                 .filter(product -> product.getStock() >= minStock);
     }
