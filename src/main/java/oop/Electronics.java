@@ -3,11 +3,12 @@ package oop;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+
 @Getter
 public class Electronics extends Product {
 
-    public Electronics(String sku, String name, Money netPrice, Category category, int warrantyMonths , Supplier supplier) {
-        super(sku, name, netPrice, category,supplier);
+    public Electronics(String sku, String name, Money netPrice, Category category, int warrantyMonths, Supplier supplier) {
+        super(sku, name, netPrice, category, supplier);
         this.warrantyMonths = warrantyMonths;
     }
 
@@ -19,11 +20,12 @@ public class Electronics extends Product {
     }
 
     @Override
-    public double getShippingCost() {
+    public Money getShippingCost() {
         if (this.getGrossPrice().amount().compareTo(BigDecimal.valueOf(2000)) > 0) {
-            return 0;
+            return new Money(BigDecimal.ZERO, "zł");
         }
-        return 19.99d;
+//        return 19.99d;
+        return new Money(new BigDecimal("19.99"), "zł");
     }
 
     @Override

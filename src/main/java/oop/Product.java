@@ -49,12 +49,12 @@ public abstract class Product implements Identifiable<String>, Comparable<Produc
         return Optional.ofNullable(supplier);
     }
 
-    public abstract double getShippingCost();
+    public abstract Money getShippingCost();
 
     public abstract String getLabel();
 
     public final Money getTotalPrice() {
-        return new Money(getGrossPrice().amount().add(BigDecimal.valueOf(getShippingCost())), this.netPrice.currency());
+        return new Money(getGrossPrice().amount().add(getShippingCost().amount()), this.netPrice.currency());
     }
 
 
