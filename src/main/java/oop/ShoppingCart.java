@@ -1,21 +1,24 @@
 package oop;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ShoppingCart {
 
+    private final DiscountPolicy policy;
+    private final List<Product> cart = new ArrayList<>();
+
     public ShoppingCart(DiscountPolicy policy) {
+
         this.policy = policy;
     }
 
-    private DiscountPolicy policy;
+    public void add(Product item, int amount) {
 
-    private final List<Product> cart = new ArrayList<>();
-
-
-    public void add(Product item) {
-        cart.add(item);
+        for (int i = 0; i < amount; i++) {
+            cart.add(item);
+        }
     }
 
     public void remove(String sku) {
@@ -38,6 +41,12 @@ public class ShoppingCart {
     public String getReceipt() {
         StringBuilder sb = new StringBuilder();
 
+        String header = """
+                ==========================================================
+                                         Receipt
+                ==========================================================
+                """;
+        sb.append(header);
         for (Product item : cart) {
             sb.append(item.toString())
                     .append(System.lineSeparator());
@@ -47,4 +56,16 @@ public class ShoppingCart {
         return sb.toString();
     }
 
+    public List<Product> getSortedBy(Comparator<Product> comparator) {
+        List<Product> sorted = new ArrayList<>(cart);
+        sorted.sort(comparator);
+        return sorted;
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart" +
+                cart +
+                '}';
+    }
 }

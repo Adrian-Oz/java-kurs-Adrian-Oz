@@ -8,8 +8,8 @@ public enum Category {
     ELECTRONICS("Elektronika", 0.23, false),
     FOOD("Spożywcze", 0.05, false),
     ALCOHOL("Alkohol", 0.23, true),
-    BOOKS("Książki", 0.05, false);
-
+    BOOKS("Książki", 0.05, false),
+    DIGITAL("Cyfrowe",0.05,false);
 
     private final String displayName;
     private final double vatRate;
