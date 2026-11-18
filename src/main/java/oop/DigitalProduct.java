@@ -2,6 +2,8 @@ package oop;
 
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Getter
 public class DigitalProduct extends Product {
     public DigitalProduct(String sku, String name, Money netPrice, Category category, String downloadUrl, Supplier supplier) {
@@ -17,8 +19,8 @@ public class DigitalProduct extends Product {
     }
 
     @Override
-    public double getShippingCost() {
-        return 0;
+    public Money getShippingCost() {
+        return new Money(BigDecimal.ZERO,"zł");
     }
 
     @Override

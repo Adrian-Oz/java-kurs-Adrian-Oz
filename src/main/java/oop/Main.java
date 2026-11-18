@@ -2,7 +2,9 @@ package oop;
 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -37,15 +39,24 @@ public class Main {
         pw.add(prod4);
 
 
+//
+//        System.out.println(pw.findSupplierName("ELEC-001"));
+//        System.out.println(pw.findAddressOfCheapest());
+//        System.out.println(pw.findEmailForContact("ELEC-001"));
+//        System.out.println(pw.findSupplierEmail("ELEC-001"));
+//
+//        System.out.println(pw.findSupplierName("ELEC-003"));
+//        System.out.println(pw.findEmailForContact("ELEC-003"));
+//        System.out.println(pw.findSupplierEmail("ELEC-003"));
+//
+        List<String> order1 = new ArrayList<>();
+        order1.add("asdasdas");
+        order1.add("das");
+        order1.add("ELEC-003");
+        order1.add("FOOD-002");
+        System.out.println(pw.processOrder(order1));
 
-        System.out.println(pw.findSupplierName("ELEC-001"));
-        System.out.println(pw.findAddressOfCheapest());
-        System.out.println(pw.findEmailForContact("ELEC-001"));
-        System.out.println(pw.findSupplierEmail("ELEC-001"));
 
-        System.out.println(pw.findSupplierName("ELEC-003"));
-        System.out.println(pw.findEmailForContact("ELEC-003"));
-        System.out.println(pw.findSupplierEmail("ELEC-003"));
 
 
 

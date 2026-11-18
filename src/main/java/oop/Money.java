@@ -7,10 +7,10 @@ public record Money(BigDecimal amount, String currency) {
 
     public Money {
         if (amount == null || amount.signum() < 0) {
-            throw new IllegalArgumentException("Invalid amount");
+            throw new InvalidPriceException(new Money(amount,currency));
         }
         if (currency == null || currency.isBlank()) {
-            throw new IllegalArgumentException("Invalid currency");
+            throw new InvalidPriceException(new Money(amount,currency));
         }
         currency = currency.trim().toUpperCase();
         amount = amount.setScale(2, RoundingMode.HALF_UP);
@@ -20,7 +20,7 @@ public record Money(BigDecimal amount, String currency) {
     //Restricting code to validation specified in assigment
     public Money add(Money other) {
         if (!(this.currency.equals(other.currency))) {
-            throw new IllegalArgumentException("Currency types doesn't match");
+            throw new InvalidPriceException(new Money(other.amount,other.currency));
         }
         BigDecimal newAmount = this.amount.add(other.amount);
         return new Money(newAmount, this.currency);
