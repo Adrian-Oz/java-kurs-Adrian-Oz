@@ -17,4 +17,8 @@ public class ShopException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
+    public ShopException(String message) {
+        super(message);
+        errorCode = null;
+    }
 }
