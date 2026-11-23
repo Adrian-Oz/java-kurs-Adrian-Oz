@@ -19,7 +19,7 @@ record ProductDTO(
             throw new IllegalArgumentException("Name must not be empty or contain whitespace at the beginning or end.");
         }
         if (netPrice.amount().signum() <= 0) {
-            throw new InvalidPriceException(netPrice);
+            throw new InvalidPriceException(netPrice.amount().toString());
         }
         if (category == null) {
             throw new IllegalArgumentException("Category is required");

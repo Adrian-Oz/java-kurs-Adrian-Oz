@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class InvalidPriceException extends ShopException {
-    private final Money price;
+    private final String price;
 
-    InvalidPriceException(Money price) {
-        super("Invalid price", "INVALID_PRICE");
+    InvalidPriceException(String price) {
+        super("Invalid price: "+ price, " INVALID_PRICE");
         this.price = price;
     }
 }

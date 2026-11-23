@@ -7,10 +7,10 @@ public record Money(BigDecimal amount, String currency) {
 
     public Money {
         if (amount == null || amount.signum() < 0) {
-            throw new ShopException("Field can't be empty and must have positive amount");
+            throw new InvalidPriceException("Price is null or negative");
         }
         if (currency == null || currency.isBlank()) {
-            throw new ShopException("Field can't be empty and must have currency type");
+            throw new InvalidPriceException("Currency can't be empty and must have currency type");
         }
         currency = currency.trim().toUpperCase();
         amount = amount.setScale(2, RoundingMode.HALF_UP);
@@ -20,7 +20,7 @@ public record Money(BigDecimal amount, String currency) {
     //Restricting code to validation specified in assigment
     public Money add(Money other) {
         if (!(this.currency.equals(other.currency))) {
-            throw new InvalidPriceException(other);
+            throw new InvalidPriceException(other.amount.toString());
         }
         BigDecimal newAmount = this.amount.add(other.amount);
         return new Money(newAmount, this.currency);
@@ -29,7 +29,8 @@ public record Money(BigDecimal amount, String currency) {
     public Money subtract(Money other) {
         BigDecimal newAmount = this.amount.subtract(other.amount);
         if (newAmount.signum() < 0) {
-            throw new InvalidPriceException(Money.of(String.valueOf(newAmount),this.currency) );
+
+            throw new InvalidPriceException(newAmount.toString());
         }
         return new Money(newAmount, this.currency);
     }
