@@ -52,8 +52,19 @@ public class Catalog {
         return bySku.size();
     }
 
+
     public void removeExpired(Predicate<Product> condition) {
         insertionOrder.removeIf(condition);
+        bySku.clear();
+        categories.clear();
+
+        for (Product product : insertionOrder) {
+            bySku.put(product.sku(), product);
+            categories.add(product.category());
+        }
+
+
+
     }
 
     public Map<String, List<Product>> groupByCategory() {

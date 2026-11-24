@@ -24,7 +24,7 @@ public class OrderService {
         for (Product prod : orderProducts) {
             total = total.add(prod.price());
         }
-        BigDecimal discount = priceList.getDiscountFor(orderProducts.size());
+        BigDecimal discount = priceList.getDiscountFor(o.skus().size());
         System.out.println(total);
         total = total.subtract(total.multiply(discount));
         return total;
