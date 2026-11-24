@@ -31,7 +31,7 @@ public class ShoppingCart {
             if (policy.appliesTo(item)) {
                 cartTotal = cartTotal.add(policy.apply(item.getGrossPrice()));
             } else {
-                cartTotal.add(item.getGrossPrice());
+                cartTotal = cartTotal.add(item.getGrossPrice());
             }
 
         }

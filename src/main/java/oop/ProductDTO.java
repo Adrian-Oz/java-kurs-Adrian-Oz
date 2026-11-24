@@ -16,12 +16,10 @@ record ProductDTO(
             throw new IllegalArgumentException("Product number is required");
         }
         if (name == null || name.isBlank() || !name.equals(name.strip())) {
-            throw new IllegalArgumentException(
-                    "Name must not be empty or contain whitespace at the beginning or end."
-            );
+            throw new IllegalArgumentException("Name must not be empty or contain whitespace at the beginning or end.");
         }
         if (netPrice.amount().signum() <= 0) {
-            throw new IllegalArgumentException("Price has to be a positive number");
+            throw new InvalidPriceException(netPrice.amount().toString());
         }
         if (category == null) {
             throw new IllegalArgumentException("Category is required");

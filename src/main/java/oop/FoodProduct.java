@@ -2,6 +2,7 @@ package oop;
 
 import lombok.Getter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 @Getter
 public class FoodProduct extends Product implements Perishable {
@@ -18,8 +19,9 @@ public class FoodProduct extends Product implements Perishable {
     }
 
     @Override
-    public double getShippingCost() {
-        return 29.99d;
+    public Money getShippingCost() {
+//        return 29.99d;
+        return new Money(new BigDecimal("29.99"), "zł");
     }
 
     @Override
