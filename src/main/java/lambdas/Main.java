@@ -40,6 +40,7 @@ public class Main {
                 .andThen(PriceCalculator.FORMAT);
         Function<Product, String> fullPriceLabel2 = PriceCalculator.BASE_PRICE
                 .andThen(PriceCalculator.WITH_VAT)
+                .andThen(PriceCalculator.discount(new BigDecimal("0.9")))
                 .andThen(PriceCalculator.WITH_SHIPPING)
                 .andThen(PriceCalculator.FORMAT);
 

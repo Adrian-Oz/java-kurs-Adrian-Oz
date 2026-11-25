@@ -20,7 +20,7 @@ public class ProductFilters {
     }
 
     public static Predicate<Product> stockAtLeast(int min) {
-        return p -> p.stock() > min;
+        return p -> p.stock() >= min;
     }
 
     static List<Product> filter(List<Product> products, Predicate<Product> p) {

@@ -28,11 +28,11 @@ public class OrderProcessor {
 
     //    Counter ?
     public static int COUNTER = 0;
-    public Supplier<String> generateOrderId = () -> "ORD-" + COUNTER;
+    public Supplier<String> generateOrderId = () -> "ORD-" + COUNTER++;
 
 
     public Order createOrder(Customer c, List<Product> items, Supplier<String> idGenerator) {
-        COUNTER++;
+
         return new Order(idGenerator.get(), c, items);
     }
 
